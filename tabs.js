@@ -1,5 +1,5 @@
-var Tabs = module.exports = function(app){
-	Tabs = Object.getPrototypeOf(app).Tabs = new app.Component("tabs");
+module.exports = function(app){
+	var Tabs = Object.getPrototypeOf(app).Tabs = new app.Component("tabs");
 	// Tabs.debug = true;
 	Tabs.createdAt      = "2.0.0";
 	Tabs.lastUpdate     = "2.0.0";
@@ -29,6 +29,5 @@ var Tabs = module.exports = function(app){
 			tabs.nav.buttons.filter('.active').trigger('click');
 	}
 
-	
 	return Tabs;
 }
