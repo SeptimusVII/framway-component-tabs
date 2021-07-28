@@ -14,19 +14,23 @@ module.exports = function(app){
 		tabs.nav.buttons = tabs.nav.$el.children('button');
 		tabs.content.tabs = tabs.content.$el.children('.tab');
 
-		tabs.nav.buttons.each(function(index,button){
-			button = $(button);
-			button.bind('click',function(event){
-				tabs.nav.buttons.removeClass('active');
-				tabs.content.tabs.removeClass('active');
-				button.addClass('active');
-				$(tabs.content.tabs[index]).addClass('active');
-			});
-		});
-		if(!tabs.nav.buttons.hasClass('active'))
-			tabs.nav.buttons.first().trigger('click');
-		else
-			tabs.nav.buttons.filter('.active').trigger('click');
+		tabs.nav.buttons.on('click',function(){
+			tabs.nav.buttons.removeClass('active');
+			tabs.content.tabs.removeClass('active');
+			$(this).addClass('active');
+			$(tabs.content.tabs[$(this).index()]).addClass('active');
+		})
+		if(!tabs.nav.buttons.hasClass('active')){
+			// tabs.nav.buttons.first().trigger('click');
+			tabs.nav.buttons.first().addClass('active');
+			tabs.content.tabs.removeClass('active')
+			$(tabs.content.tabs).first().addClass('active');
+		}
+		else{
+			// tabs.nav.buttons.filter('.active').trigger('click');
+			tabs.content.tabs.removeClass('active');
+			$(tabs.content.tabs[tabs.nav.buttons.filter('.active').index()]).addClass('active');
+		}
 	}
 
 	return Tabs;
