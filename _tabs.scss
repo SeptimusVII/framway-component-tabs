@@ -5,4 +5,5 @@
 .tabs__content .tab{opacity: 0; visibility: hidden; height:0; overflow: hidden; display: block;
   &.active{visibility: visible; opacity: 1; position: relative; height: auto;overflow: visible;}
   &:not(.active){padding: 0 !important; margin: 0 !important;}
+  @include lastChildNoMargin();
 }
