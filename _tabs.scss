@@ -1,5 +1,5 @@
 .tabs{margin-bottom: $spacing; display: block;}
-.tabs__nav{margin-bottom: $spacing/2; display: block;}
+.tabs__nav{margin-bottom: $spacing*0.5; display: block;}
 .tabs__nav button{}
 .tabs__content{position: relative; display: block;}
 .tabs__content .tab{opacity: 0; visibility: hidden; height:0; overflow: hidden; display: block;
