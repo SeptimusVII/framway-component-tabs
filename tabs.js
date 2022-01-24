@@ -10,15 +10,27 @@ module.exports = function(app){
 		var tabs = this;
 		tabs.nav = {$el : tabs.$el.children('.tabs__nav'),};
 		tabs.content = {$el : tabs.$el.children('.tabs__content'),};
+		// callbacks
+        tabs.beforeChange = (tabs.beforeChange !== undefined) 	? tabs.beforeChange	: function(){tabs.log('beforeChange'); };
+        tabs.afterchange  = (tabs.afterchange !== undefined)	? tabs.afterchange 	: function(){ tabs.log('afterchange'); };
+        
+
 
 		tabs.nav.buttons = tabs.nav.$el.children('button');
 		tabs.content.tabs = tabs.content.$el.children('.tab');
 
 		tabs.nav.buttons.on('click',function(){
-			tabs.nav.buttons.removeClass('active');
-			tabs.content.tabs.removeClass('active');
-			$(this).addClass('active');
-			$(tabs.content.tabs[$(this).index()]).addClass('active');
+			var btn = this;
+			Promise.resolve(tabs.beforeChange()).then(function(tab){
+				tabs.nav.buttons.removeClass('active');
+				tabs.content.tabs.removeClass('active');
+				$(btn).addClass('active');
+				$(tabs.content.tabs[$(btn).index()]).addClass('active');
+				tabs.afterchange()
+			})
+			.catch(function(err){
+				console.log('Error on tabs change (tab '+btn.innerHTML.trim()+'): ',err);
+			})
 		})
 		if(!tabs.nav.buttons.hasClass('active')){
 			// tabs.nav.buttons.first().trigger('click');
