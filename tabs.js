@@ -12,7 +12,7 @@ module.exports = function(app){
 		tabs.content = {$el : tabs.$el.children('.tabs__content'),};
 		// callbacks
         tabs.beforeChange = (tabs.beforeChange !== undefined) 	? tabs.beforeChange	: function(){tabs.log('beforeChange'); };
-        tabs.afterchange  = (tabs.afterchange !== undefined)	? tabs.afterchange 	: function(){ tabs.log('afterchange'); };
+        tabs.afterChange  = (tabs.afterChange !== undefined)	? tabs.afterChange 	: function(){ tabs.log('afterChange'); };
         
 
 
@@ -26,7 +26,7 @@ module.exports = function(app){
 				tabs.content.tabs.removeClass('active');
 				$(btn).addClass('active');
 				$(tabs.content.tabs[$(btn).index()]).addClass('active');
-				tabs.afterchange()
+				tabs.afterChange();
 			})
 			.catch(function(err){
 				console.log('Error on tabs change (tab '+btn.innerHTML.trim()+'): ',err);
