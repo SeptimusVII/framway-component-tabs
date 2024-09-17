@@ -2,22 +2,22 @@ module.exports = function(app){
 	var Tabs = Object.getPrototypeOf(app).Tabs = new app.Component("tabs");
 	// Tabs.debug = true;
 	Tabs.createdAt      = "2.0.0";
-	Tabs.lastUpdate     = "2.4.5";
-	Tabs.version        = "1.0.1";
+	Tabs.lastUpdate     = "2.5.1";
+	Tabs.version        = "1.0.2";
 	// Tabs.factoryExclude = true;
 	// Tabs.loadingMsg     = "This message will display in the console when component will be loaded.";
 	Tabs.prototype.onCreate = function(){
 		var tabs = this;
-		tabs.nav = {$el : tabs.$el.children('.tabs__nav'),};
-		tabs.content = {$el : tabs.$el.children('.tabs__content'),};
+		tabs.nav = {$el : tabs.$el.find('.tabs__nav'),};
+		tabs.content = {$el : tabs.$el.find('.tabs__content'),};
 		// callbacks
         tabs.beforeChange = (tabs.beforeChange !== undefined) 	? tabs.beforeChange	: function(){tabs.log('beforeChange'); };
         tabs.afterChange  = (tabs.afterChange !== undefined)	? tabs.afterChange 	: function(){ tabs.log('afterChange'); };
         
 
 
-		tabs.nav.buttons = tabs.nav.$el.children('button');
-		tabs.content.tabs = tabs.content.$el.children('.tab');
+		tabs.nav.buttons = tabs.nav.$el.find('button,.nav__button');
+		tabs.content.tabs = tabs.content.$el.find('.tab');
 
 		tabs.nav.buttons.on('click',function(){
 			var btn = this;
