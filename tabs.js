@@ -3,21 +3,21 @@ module.exports = function(app){
 	// Tabs.debug = true;
 	Tabs.createdAt      = "2.0.0";
 	Tabs.lastUpdate     = "2.5.1";
-	Tabs.version        = "1.0.2";
+	Tabs.version        = "1.0.3";
 	// Tabs.factoryExclude = true;
 	// Tabs.loadingMsg     = "This message will display in the console when component will be loaded.";
 	Tabs.prototype.onCreate = function(){
 		var tabs = this;
-		tabs.nav = {$el : tabs.$el.find('.tabs__nav'),};
-		tabs.content = {$el : tabs.$el.find('.tabs__content'),};
+		tabs.nav = {$el : tabs.$el.find('.tabs__nav').first(),};
+		tabs.content = {$el : tabs.$el.find('.tabs__content').first(),};
 		// callbacks
         tabs.beforeChange = (tabs.beforeChange !== undefined) 	? tabs.beforeChange	: function(){tabs.log('beforeChange'); };
         tabs.afterChange  = (tabs.afterChange !== undefined)	? tabs.afterChange 	: function(){ tabs.log('afterChange'); };
         
-
-
 		tabs.nav.buttons = tabs.nav.$el.find('button,.nav__button');
-		tabs.content.tabs = tabs.content.$el.find('.tab');
+		tabs.content.tabs = tabs.content.$el.find('.tab').filter(function(){
+			return $(this).closest('.tabs__content').get(0) == tabs.content.$el.get(0);
+		});
 
 		tabs.nav.buttons.on('click',function(){
 			var btn = this;
