@@ -2,8 +2,8 @@ module.exports = function(app){
 	var Tabs = Object.getPrototypeOf(app).Tabs = new app.Component("tabs");
 	// Tabs.debug = true;
 	Tabs.createdAt      = "2.0.0";
-	Tabs.lastUpdate     = "2.5.1";
-	Tabs.version        = "1.0.3";
+	Tabs.lastUpdate     = "2.6.0";
+	Tabs.version        = "1.0.4";
 	// Tabs.factoryExclude = true;
 	// Tabs.loadingMsg     = "This message will display in the console when component will be loaded.";
 	Tabs.prototype.onCreate = function(){
@@ -14,7 +14,7 @@ module.exports = function(app){
         tabs.beforeChange = (tabs.beforeChange !== undefined) 	? tabs.beforeChange	: function(){tabs.log('beforeChange'); };
         tabs.afterChange  = (tabs.afterChange !== undefined)	? tabs.afterChange 	: function(){ tabs.log('afterChange'); };
         
-		tabs.nav.buttons = tabs.nav.$el.find('button,.nav__button');
+		tabs.nav.buttons = tabs.nav.$el.find('button,.nav__button').not('.exclude');
 		tabs.content.tabs = tabs.content.$el.find('.tab').filter(function(){
 			return $(this).closest('.tabs__content').get(0) == tabs.content.$el.get(0);
 		});
