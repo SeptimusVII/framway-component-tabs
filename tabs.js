@@ -3,7 +3,7 @@ module.exports = function(app){
 	// Tabs.debug = true;
 	Tabs.createdAt      = "2.0.0";
 	Tabs.lastUpdate     = "2.6.0";
-	Tabs.version        = "1.0.4";
+	Tabs.version        = "1.0.5";
 	// Tabs.factoryExclude = true;
 	// Tabs.loadingMsg     = "This message will display in the console when component will be loaded.";
 	Tabs.prototype.onCreate = function(){
@@ -19,19 +19,7 @@ module.exports = function(app){
 			return $(this).closest('.tabs__content').get(0) == tabs.content.$el.get(0);
 		});
 
-		tabs.nav.buttons.on('click',function(){
-			var btn = this;
-			Promise.resolve(tabs.beforeChange()).then(function(tab){
-				tabs.nav.buttons.removeClass('active');
-				tabs.content.tabs.removeClass('active');
-				$(btn).addClass('active');
-				$(tabs.content.tabs[$(btn).index()]).addClass('active');
-				tabs.afterChange();
-			})
-			.catch(function(err){
-				console.log('Error on tabs change (tab '+btn.innerHTML.trim()+'): ',err);
-			})
-		})
+
 		if(!tabs.nav.buttons.hasClass('active')){
 			// tabs.nav.buttons.first().trigger('click');
 			tabs.nav.buttons.first().addClass('active');
@@ -43,7 +31,27 @@ module.exports = function(app){
 			tabs.content.tabs.removeClass('active');
 			$(tabs.content.tabs[tabs.nav.buttons.filter('.active').index()]).addClass('active');
 		}
+
+		return tabs;
 	}
+
+    $(function () {
+        $('body').on('click', '.tabs__nav button:not(.exclude), .nav__button', function(e) {
+        	let btn = this;
+        	let tabs = $(btn).closest('.tabs').tabs('get'); 
+        	Promise.resolve(tabs.beforeChange()).then(function(tab){
+        		tabs.nav.buttons.removeClass('active');
+        		tabs.content.tabs.removeClass('active');
+        		$(btn).addClass('active');
+        		$(tabs.content.tabs[$(btn).index()]).addClass('active');
+        		tabs.afterChange();
+        	})
+        	.catch(function(err){
+        		console.log('Error on tabs change (tab '+btn.innerHTML.trim()+'): ',err);
+        	})
+        });
+    });
 
 	return Tabs;
 }
+
