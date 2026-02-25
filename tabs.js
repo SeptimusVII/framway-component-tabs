@@ -1,7 +1,7 @@
 module.exports = function(){
     let Tabs = Object.getPrototypeOf(fw).Tabs = class Tabs extends fw.Component{
         static {
-            this.debug = true;
+            this.debug = false;
             this.createdAt  = "3.0.0";
             this.lastUpdate = "3.0.0";
             this.version    = "2.0.0";
