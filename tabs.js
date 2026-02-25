@@ -4,7 +4,7 @@ module.exports = function(){
             this.debug = true;
             this.createdAt  = "3.0.0";
             this.lastUpdate = "3.0.0";
-            this.version = "1.0.0";
+            this.version    = "2.0.0";
             this.tpl = utils.htmlToNode(require('bundle-tpl:./tabs.html')).outerHTML;
             // this.describe();
         }
